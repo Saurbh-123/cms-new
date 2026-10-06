@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<aside th:fragment="sidebarId"  class="sidebar">
+  <a href="dashboard.html" class="sb-brand"><i class="bi bi-hexagon-fill"></i><span class="txt">Company</span></a>
+  <div class="sb-label">Main</div>
+  <nav class="nav flex-column">
+    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#mDash" aria-expanded="false" title="Dashboard">
+	    <i class="bi bi-speedometer2"></i><span class="txt">Dashboard</span>
+	    <i class="bi bi-chevron-down arr txt"></i>
+    </a>
+    <div class="collapse sub" id="mDash"><a class="nav-link" href="dashboard.html">
+	    <i class="bi bi-person-gear"></i><span class="txt">Admin</span></a>
+	    <a class="nav-link" href="student.html">
+	    <i class="bi bi-mortarboard"></i>
+	    <span class="txt">Student</span></a>
+    </div>
+    
+    
+    
+    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#menus" aria-expanded="false" title="Dashboard">
+	    <i class="bi bi-menu-button"></i><span class="txt">Menus Master</span>
+	    <i class="bi bi-chevron-down arr txt"></i>
+    </a>
+    <div class="collapse sub" id="menus">
+    	<a class="nav-link" th:href="@{admin/menus}">
+	    	<i class="bi bi-person-gear"></i><span class="txt">Insert</span>
+	    </a>
+	    
+    </div>
+    
+    <a class="nav-link" href="form.html" title="Form"><i class="bi bi-ui-checks"></i><span class="txt">Form Page</span></a>
+    <a class="nav-link" href="datatable.html" title="DataTable"><i class="bi bi-table"></i><span class="txt">DataTable</span></a>
+    <a class="nav-link" href="components.html" title="Components"><i class="bi bi-puzzle"></i><span class="txt">Components</span></a>
+    <div class="sb-label">Pages</div>
+    <a class="nav-link" href="profile.html" title="Profile"><i class="bi bi-person-badge"></i><span class="txt">Profile</span></a>
+    <a class="nav-link" href="invoice.html" title="Invoice"><i class="bi bi-receipt"></i><span class="txt">Invoice</span></a>
+    <a class="nav-link" href="404.html" title="404"><i class="bi bi-exclamation-octagon"></i><span class="txt">404 Page</span></a>
+  </nav>
+</aside>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/app :: layout(~{::title}, ~{::main} ,~{::script})}" >
+<head>
+<meta charset="UTF-8">
+<title>Dahboard</title>
+</head>
+<body>
+<div >
+</div>
+
+<main class="content">
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h1 class="page-title">Admin Dashboard</h1>
+  <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="#">Home</a></li><li class="breadcrumb-item active">Admin</li></ol></nav>
+</div>
+<div class="row g-2 mb-2">
+  <div class="col-6 col-lg-3"><div class="card"><div class="card-body stat"><div class="ico bg-primary"><i class="bi bi-people"></i></div><div><h5>1,240</h5><small>Users</small></div></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card"><div class="card-body stat"><div class="ico bg-success"><i class="bi bi-currency-rupee"></i></div><div><h5>8.4L</h5><small>Revenue</small></div></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card"><div class="card-body stat"><div class="ico bg-warning"><i class="bi bi-cart3"></i></div><div><h5>356</h5><small>Orders</small></div></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card"><div class="card-body stat"><div class="ico bg-danger"><i class="bi bi-exclamation-triangle"></i></div><div><h5>12</h5><small>Pending</small></div></div></div></div>
+</div>
+<div class="row g-2 mb-2">
+  <div class="col-lg-8"><div class="card h-100"><div class="card-header"><i class="bi bi-graph-up"></i> Revenue vs Expenses</div><div class="card-body"><div style="height:210px"><canvas id="revChart"></canvas></div></div></div></div>
+  <div class="col-lg-4"><div class="card h-100"><div class="card-header"><i class="bi bi-pie-chart"></i> Sales by Category</div><div class="card-body"><div style="height:210px"><canvas id="catChart"></canvas></div></div></div></div>
+</div>
+<div class="row g-2 mb-2">
+  <div class="col-lg-6"><div class="card h-100"><div class="card-header"><i class="bi bi-bullseye"></i> Targets</div><div class="card-body">
+    <div class="d-flex justify-content-between small mb-1"><span>Fees collected</span><span>80%</span></div><div class="progress mb-2"><div class="progress-bar bg-success" style="width:80%"></div></div>
+    <div class="d-flex justify-content-between small mb-1"><span>Attendance</span><span>65%</span></div><div class="progress mb-2"><div class="progress-bar" style="width:65%"></div></div>
+    <div class="d-flex justify-content-between small mb-1"><span>Pending tasks</span><span>35%</span></div><div class="progress"><div class="progress-bar bg-warning" style="width:35%"></div></div></div></div></div>
+  <div class="col-lg-6"><div class="card h-100"><div class="card-header"><i class="bi bi-clock-history"></i> Recent Activity</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><i class="bi bi-person-plus text-success me-2"></i>New student added <span class="text-muted float-end small">2 min</span></li>
+      <li class="list-group-item"><i class="bi bi-cash-coin text-primary me-2"></i>Fee received &#8377;12,000 <span class="text-muted float-end small">1 hr</span></li>
+      <li class="list-group-item"><i class="bi bi-exclamation-circle text-danger me-2"></i>Invoice overdue <span class="text-muted float-end small">3 hr</span></li>
+      <li class="list-group-item"><i class="bi bi-file-earmark-check text-info me-2"></i>Report generated <span class="text-muted float-end small">Yesterday</span></li></ul></div></div>
+</div>
+<div class="card">
+  <div class="card-header"><i class="bi bi-table"></i> Recent Records
+    <a href="form.html" class="btn btn-primary ms-auto"><i class="bi bi-plus-lg me-1"></i>Add New</a></div>
+  <div class="card-body">
+    <table class="table table-sm table-striped table-hover table-bordered dt-table datatable w-100">
+      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Status</th><th width="70">Action</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Amit Sharma</td><td>amit@mail.com</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-outline-primary btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-outline-danger btn-icon" data-delete data-url="#"><i class="bi bi-trash"></i></button></td></tr>
+        <tr><td>2</td><td>Neha Verma</td><td>neha@mail.com</td><td><span class="badge bg-secondary">Inactive</span></td><td><button class="btn btn-outline-primary btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-outline-danger btn-icon" data-delete data-url="#"><i class="bi bi-trash"></i></button></td></tr>
+        <tr><td>3</td><td>Rohit Jain</td><td>rohit@mail.com</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-outline-primary btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-outline-danger btn-icon" data-delete data-url="#"><i class="bi bi-trash"></i></button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+
+
+
+<script>
+const fs={font:{size:10}};
+new Chart('revChart',{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'],datasets:[{label:'Revenue',data:[12,19,15,25,22,30,28,35,40],borderColor:'#0d6efd',backgroundColor:'rgba(13,110,253,.1)',fill:true,tension:.35,pointRadius:2},{label:'Expenses',data:[8,11,10,14,15,18,17,20,22],borderColor:'#dc3545',tension:.35,pointRadius:2}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,font:{size:10}}}},scales:{x:{ticks:fs},y:{ticks:fs}}}});
+new Chart('catChart',{type:'doughnut',data:{labels:['Fees','Books','Uniform','Other'],datasets:[{data:[45,25,20,10],backgroundColor:['#0d6efd','#198754','#ffc107','#6c757d']}]},options:{maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+</script>
+
+
+</body>
+</html>
