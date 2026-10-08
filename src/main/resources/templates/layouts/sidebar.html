@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<aside th:fragment="sidebarId" class="sidebar"
+       th:with="inDash=${uri != null and (#strings.startsWith(uri,'/dashboard') or #strings.startsWith(uri,'/student'))},
+                inPatient=${uri != null and #strings.startsWith(uri,'/admin/menus')},
+                inState=${uri != null and #strings.startsWith(uri,'/admin/state')}">
 
-<aside th:fragment="sidebarId"  class="sidebar">
-  <a href="dashboard.html" class="sb-brand"><i class="bi bi-hexagon-fill"></i><span class="txt">Company</span></a>
+  <a th:href="@{/dashboard}" class="sb-brand"><i class="bi bi-hexagon-fill"></i><span class="txt">Company</span></a>
   <div class="sb-label">Main</div>
+
   <nav class="nav flex-column">
-    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#mDash" aria-expanded="false" title="Dashboard">
-	    <i class="bi bi-speedometer2"></i><span class="txt">Dashboard</span>
-	    <i class="bi bi-chevron-down arr txt"></i>
+
+    <!-- DASHBOARD -->
+    <a class="nav-link nav-toggle" th:classappend="${!inDash} ? 'collapsed'"
+       data-bs-toggle="collapse" href="#mDash" th:attr="aria-expanded=${inDash}" title="Dashboard">
+      <i class="bi bi-speedometer2"></i><span class="txt">Dashboard</span>
+      <i class="bi bi-chevron-down arr txt"></i>
     </a>
-    <div class="collapse sub" id="mDash"><a class="nav-link" href="dashboard.html">
-	    <i class="bi bi-person-gear"></i><span class="txt">Admin</span></a>
-	    <a class="nav-link" href="student.html">
-	    <i class="bi bi-mortarboard"></i>
-	    <span class="txt">Student</span></a>
+    <div class="collapse sub" id="mDash" th:classappend="${inDash} ? 'show'">
+      <a class="nav-link" th:href="@{/dashboard}"
+         th:classappend="${uri != null and #strings.startsWith(uri,'/dashboard')} ? 'active'">
+        <i class="bi bi-person-gear"></i><span class="txt">Admin</span></a>
+      <a class="nav-link" th:href="@{/student}"
+         th:classappend="${uri != null and #strings.startsWith(uri,'/student')} ? 'active'">
+        <i class="bi bi-mortarboard"></i><span class="txt">Student</span></a>
     </div>
-    
-    
-    
-    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#menus" aria-expanded="false" title="Dashboard">
-	    <i class="bi bi-menu-button"></i><span class="txt">Patient Master</span>
-	    <i class="bi bi-chevron-down arr txt"></i>
+
+    <!-- PATIENT MASTER -->
+    <a class="nav-link nav-toggle" th:classappend="${!inPatient} ? 'collapsed'"
+       data-bs-toggle="collapse" href="#menus" th:attr="aria-expanded=${inPatient}" title="Patient Master">
+      <i class="bi bi-menu-button"></i><span class="txt">Patient Master</span>
+      <i class="bi bi-chevron-down arr txt"></i>
     </a>
-    <div class="collapse sub" id="menus">
-    	<a class="nav-link" th:href="@{/admin/menus}">
-	    	<i class="bi bi-person-gear"></i><span class="txt">Insert</span>
-	    </a>
-	    
+    <div class="collapse sub" id="menus" th:classappend="${inPatient} ? 'show'">
+      <a class="nav-link" th:href="@{/admin/menus}"
+         th:classappend="${inPatient} ? 'active'">
+        <i class="bi bi-person-gear"></i><span class="txt">Insert</span></a>
     </div>
-    
-    
-    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#state" aria-expanded="false" title="Dashboard">
-	    <i class="bi bi-menu-button"></i><span class="txt">State Master</span>
-	    <i class="bi bi-chevron-down arr txt"></i>
+
+    <!-- STATE MASTER -->
+    <a class="nav-link nav-toggle" th:classappend="${!inState} ? 'collapsed'"
+       data-bs-toggle="collapse" href="#state" th:attr="aria-expanded=${inState}" title="State Master">
+      <i class="bi bi-menu-button"></i><span class="txt">State Master</span>
+      <i class="bi bi-chevron-down arr txt"></i>
     </a>
-    <div class="collapse sub" id="state">
-    	<a class="nav-link" th:href="@{/admin/state}">
-	    	<i class="bi bi-person-gear"></i><span class="txt">Embed State</span>
-	    </a>
-	    
+    <div class="collapse sub" id="state" th:classappend="${inState} ? 'show'">
+      <a class="nav-link" th:href="@{/admin/state}"
+         th:classappend="${inState} ? 'active'">
+        <i class="bi bi-person-gear"></i><span class="txt">Embed State</span></a>
     </div>
-    
-    
+
   </nav>
 </aside>
+</html>

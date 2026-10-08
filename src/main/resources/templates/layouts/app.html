@@ -10,21 +10,15 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
 <link th:href="@{/assets/css/style.css}" rel="stylesheet">
-
 </head>
 <body>
 
-<div th:replace="~{layouts/sidebar :: sidebarId}">
-</div>
+<div th:replace="~{layouts/sidebar :: sidebarId}"></div>
+<div th:replace="~{layouts/topbar :: topbarId}"></div>
 
-<div th:replace="~{layouts/topbar :: topbarId}">
-</div>
+<div id="flash" hidden th:data-msg="${msg}" th:data-error="${error}"></div>
 
-
-<div th:replace="${content}">
-
-</div>
-
+<div th:replace="${content}"></div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -33,53 +27,9 @@
 <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script th:src="@{/assets/js/app.js}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var KEY = 'openMenus';
-  var saved = [];
-  try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
-
-  function openMenu(sub) {
-    sub.classList.add('show');
-    var t = document.querySelector('.sidebar [href="#' + sub.id + '"]');
-    if (t) { t.classList.remove('collapsed'); t.setAttribute('aria-expanded', 'true'); }
-  }
-
-  // 1. reopen menus the user had opened
-  saved.forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) openMenu(el);
-  });
-
-  // 2. open the menu of the current page + highlight link
-  document.querySelectorAll('.sidebar .sub a.nav-link').forEach(function (a) {
-    var p = a.pathname;
-    if (p && p !== '/' && location.pathname.startsWith(p)) {
-      a.classList.add('active');
-      openMenu(a.closest('.collapse'));
-    }
-  });
-
-  // 3. remember open / close
-  function store(id, isOpen) {
-    saved = saved.filter(function (x) { return x !== id; });
-    if (isOpen) saved.push(id);
-    localStorage.setItem(KEY, JSON.stringify(saved));
-  }
-  document.querySelectorAll('.sidebar .collapse.sub').forEach(function (el) {
-    el.addEventListener('shown.bs.collapse',  function () { store(el.id, true);  });
-    el.addEventListener('hidden.bs.collapse', function () { store(el.id, false); });
-  });
-});
-</script>
-
-
-<div th:replace="${script}">
-</div>
-
+<div th:replace="${script}"></div>
 
 </body>
 </html>
