@@ -7,6 +7,25 @@ const App = {
     return Swal.fire({title:'Are you sure?',text,icon:'warning',showCancelButton:true,confirmButtonText:btn,confirmButtonColor:'#dc3545'}).then(r=>r.isConfirmed);
   }
 };
+
+/* Auto behaviours for every page */
+$(function () {
+
+  // 1. Flash messages from the controller -> toast
+  var f = $('#flash');
+  if (f.data('msg'))   App.toast('success', f.data('msg'));
+  if (f.data('error')) App.toast('error',   f.data('error'));
+
+  // 2. Any form with data-confirm asks first
+  $(document).on('submit', 'form[data-confirm]', function (e) {
+    e.preventDefault();
+    var form = this;
+    App.confirm($(form).data('confirm'), $(form).data('confirm-btn') || 'Yes')
+       .then(function (ok) { if (ok) form.submit(); });   // native submit, no loop
+  });
+
+});
+
 $(function(){
   const b = document.body;
   // Sidebar toggle (remembered on desktop)

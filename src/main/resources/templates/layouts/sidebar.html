@@ -20,22 +20,28 @@
     
     
     <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#menus" aria-expanded="false" title="Dashboard">
-	    <i class="bi bi-menu-button"></i><span class="txt">Menus Master</span>
+	    <i class="bi bi-menu-button"></i><span class="txt">Patient Master</span>
 	    <i class="bi bi-chevron-down arr txt"></i>
     </a>
     <div class="collapse sub" id="menus">
-    	<a class="nav-link" th:href="@{admin/menus}">
+    	<a class="nav-link" th:href="@{/admin/menus}">
 	    	<i class="bi bi-person-gear"></i><span class="txt">Insert</span>
 	    </a>
 	    
     </div>
     
-    <a class="nav-link" href="form.html" title="Form"><i class="bi bi-ui-checks"></i><span class="txt">Form Page</span></a>
-    <a class="nav-link" href="datatable.html" title="DataTable"><i class="bi bi-table"></i><span class="txt">DataTable</span></a>
-    <a class="nav-link" href="components.html" title="Components"><i class="bi bi-puzzle"></i><span class="txt">Components</span></a>
-    <div class="sb-label">Pages</div>
-    <a class="nav-link" href="profile.html" title="Profile"><i class="bi bi-person-badge"></i><span class="txt">Profile</span></a>
-    <a class="nav-link" href="invoice.html" title="Invoice"><i class="bi bi-receipt"></i><span class="txt">Invoice</span></a>
-    <a class="nav-link" href="404.html" title="404"><i class="bi bi-exclamation-octagon"></i><span class="txt">404 Page</span></a>
+    
+    <a class="nav-link nav-toggle" data-bs-toggle="collapse" href="#state" aria-expanded="false" title="Dashboard">
+	    <i class="bi bi-menu-button"></i><span class="txt">State Master</span>
+	    <i class="bi bi-chevron-down arr txt"></i>
+    </a>
+    <div class="collapse sub" id="state">
+    	<a class="nav-link" th:href="@{/admin/state}">
+	    	<i class="bi bi-person-gear"></i><span class="txt">Embed State</span>
+	    </a>
+	    
+    </div>
+    
+    
   </nav>
 </aside>

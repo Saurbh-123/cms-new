@@ -1,56 +1,191 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/app :: layout(~{::title}, ~{::main}, ~{::script})}" >
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/app :: layout(~{::title}, ~{::main}, ~{::script})}">
 <head>
 <meta charset="UTF-8">
-<title>Menus</title>
+<title>Patient Master</title>
 </head>
 <body>
 
-
 <main class="content">
 <div class="d-flex justify-content-between align-items-center mb-2">
-  <h1 class="page-title">Form Page</h1>
-  <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="#">Home</a></li><li class="breadcrumb-item active">Form</li></ol></nav>
+  <h1 class="page-title">Patient Master</h1>
+  <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="#">Home</a></li><li class="breadcrumb-item active">Patient Master</li></ol></nav>
 </div>
-<div class="card">
-  <div class="card-header"><i class="bi bi-pencil-square"></i> Add Record</div>
+
+<form id="patientForm" class="needs-validation" novalidate enctype="multipart/form-data">
+
+<!-- 1. REGISTRATION -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-hospital"></i> Registration Details</div>
   <div class="card-body">
-    <form id="demoForm" class="needs-validation" novalidate>
-      <div class="row g-2">
-        <div class="col-md-4"><label class="form-label">Full Name</label>
-          <div class="input-group"><span class="input-group-text"><i class="bi bi-person"></i></span><input type="text" class="form-control" name="name" required></div></div>
-        <div class="col-md-4"><label class="form-label">Email</label>
-          <div class="input-group"><span class="input-group-text"><i class="bi bi-envelope"></i></span><input type="email" class="form-control" name="email" required></div></div>
-        <div class="col-md-4"><label class="form-label">Mobile</label>
-          <div class="input-group"><span class="input-group-text"><i class="bi bi-telephone"></i></span><input type="tel" class="form-control" name="mobile"></div></div>
-        <div class="col-md-3"><label class="form-label">Date</label><input type="date" class="form-control" name="date"></div>
-        <div class="col-md-3"><label class="form-label">Category</label>
-          <select class="form-select select2" name="cat" data-placeholder="Select category" required><option></option><option>Student</option><option>Teacher</option><option>Staff</option><option>Parent</option></select></div>
-        <div class="col-md-3"><label class="form-label">Amount</label>
-          <div class="input-group"><span class="input-group-text"><i class="bi bi-currency-rupee"></i></span><input type="number" class="form-control" name="amount"></div></div>
-        <div class="col-md-3"><label class="form-label">File</label><input type="file" class="form-control" name="file"></div>
-        <div class="col-md-6"><label class="form-label">Tags (multi select)</label><select class="form-select select2" name="tags[]" multiple data-placeholder="Select tags"><option>PHP</option><option>Laravel</option><option>CodeIgniter</option><option>MySQL</option><option>JavaScript</option></select></div>
-        <div class="col-md-6"><label class="form-label">Address</label><textarea class="form-control" rows="2" name="address"></textarea></div>
-        <div class="col-12 d-flex gap-3">
-          <div class="form-check"><input class="form-check-input" type="checkbox" id="c1"><label class="form-check-label" for="c1">Remember</label></div>
-          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="s1" checked><label class="form-check-label" for="s1">Active</label></div>
-        </div>
-      </div>
-      <hr class="my-2">
-      <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save</button>
-      <button type="reset" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
-    </form>
+    <div class="row g-2">
+      <div class="col-md-3"><label class="form-label">UHID / Patient No.</label>
+        <input type="text" class="form-control" name="uhid" placeholder="Auto generated" readonly></div>
+      <div class="col-md-3"><label class="form-label">Registration Date <span class="text-danger">*</span></label>
+        <input type="date" class="form-control" name="regDate" required></div>
+      <div class="col-md-3"><label class="form-label">Visit Type <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="visitTypeId" data-placeholder="Select" required>
+          <option></option><option>OPD</option><option>IPD</option><option>Emergency</option><option>Day Care</option></select></div>
+      <div class="col-md-3"><label class="form-label">Patient Category <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="patientCategoryId" data-placeholder="Select" required>
+          <option></option><option>General</option><option>Insurance / TPA</option><option>Corporate</option><option>Government Scheme</option></select></div>
+
+      <div class="col-md-3"><label class="form-label">Department <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="departmentId" data-placeholder="Select department" required>
+          <option></option><option>General Medicine</option><option>Orthopedics</option><option>Pediatrics</option><option>Gynecology</option></select></div>
+      <div class="col-md-3"><label class="form-label">Consulting Doctor <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="doctorId" data-placeholder="Select doctor" required><option></option></select></div>
+      <div class="col-md-3"><label class="form-label">Referred By</label>
+        <select class="form-select select2" name="referredById" data-placeholder="Select"><option></option><option>Self</option><option>Doctor</option><option>Hospital</option></select></div>
+      <div class="col-md-3"><label class="form-label">Registration Fee</label>
+        <div class="input-group"><span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+        <input type="number" class="form-control" name="regFee" min="0"></div></div>
+    </div>
   </div>
 </div>
+
+<!-- 2. PERSONAL -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-person-vcard"></i> Personal Details</div>
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-2"><label class="form-label">Title <span class="text-danger">*</span></label>
+        <select class="form-select" name="title" required><option value="">Select</option><option>Mr</option><option>Mrs</option><option>Ms</option><option>Master</option><option>Baby</option><option>Dr</option></select></div>
+      <div class="col-md-4"><label class="form-label">Patient Name <span class="text-danger">*</span></label>
+        <div class="input-group"><span class="input-group-text"><i class="bi bi-person"></i></span>
+        <input type="text" class="form-control" name="name" required></div></div>
+      <div class="col-md-3"><label class="form-label">Gender <span class="text-danger">*</span></label>
+        <select class="form-select" name="gender" required><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+      <div class="col-md-3"><label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+        <input type="date" class="form-control" name="dob" id="dob" required></div>
+
+      <div class="col-md-2"><label class="form-label">Age</label>
+        <input type="text" class="form-control" name="age" id="age" readonly></div>
+      <div class="col-md-3"><label class="form-label">Blood Group</label>
+        <select class="form-select" name="bloodGroup"><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+      <div class="col-md-3"><label class="form-label">Marital Status</label>
+        <select class="form-select" name="maritalStatus"><option value="">Select</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+      <div class="col-md-4"><label class="form-label">Father / Husband Name</label>
+        <input type="text" class="form-control" name="guardianName"></div>
+
+      <div class="col-md-3"><label class="form-label">Mobile <span class="text-danger">*</span></label>
+        <div class="input-group"><span class="input-group-text"><i class="bi bi-telephone"></i></span>
+        <input type="tel" class="form-control" name="mobile" pattern="[6-9][0-9]{9}" maxlength="10" required></div>
+        <div class="invalid-feedback">Enter valid 10 digit mobile</div></div>
+      <div class="col-md-3"><label class="form-label">Alternate Mobile</label>
+        <input type="tel" class="form-control" name="altMobile" pattern="[6-9][0-9]{9}" maxlength="10"></div>
+      <div class="col-md-3"><label class="form-label">Email</label>
+        <div class="input-group"><span class="input-group-text"><i class="bi bi-envelope"></i></span>
+        <input type="email" class="form-control" name="email"></div></div>
+      <div class="col-md-3"><label class="form-label">Photo</label>
+        <input type="file" class="form-control" name="photo" accept="image/*"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. ADDRESS -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-geo-alt"></i> Address</div>
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-6"><label class="form-label">Address <span class="text-danger">*</span></label>
+        <textarea class="form-control" rows="2" name="address" required></textarea></div>
+      <div class="col-md-2"><label class="form-label">State <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="stateId" data-placeholder="Select" required><option></option></select></div>
+      <div class="col-md-2"><label class="form-label">City <span class="text-danger">*</span></label>
+        <select class="form-select select2" name="cityId" data-placeholder="Select" required><option></option></select></div>
+      <div class="col-md-2"><label class="form-label">Pincode</label>
+        <input type="text" class="form-control" name="pincode" pattern="[0-9]{6}" maxlength="6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. ID PROOF + EMERGENCY CONTACT -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-shield-check"></i> ID Proof &amp; Emergency Contact</div>
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-3"><label class="form-label">ID Proof Type</label>
+        <select class="form-select" name="idProofType"><option value="">Select</option><option>Aadhaar</option><option>PAN</option><option>Voter ID</option><option>Driving Licence</option><option>Passport</option></select></div>
+      <div class="col-md-3"><label class="form-label">ID Number</label>
+        <input type="text" class="form-control" name="idProofNo"></div>
+      <div class="col-md-2"><label class="form-label">Contact Person <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="emgName" required></div>
+      <div class="col-md-2"><label class="form-label">Relation <span class="text-danger">*</span></label>
+        <select class="form-select" name="emgRelation" required><option value="">Select</option><option>Father</option><option>Mother</option><option>Spouse</option><option>Son</option><option>Daughter</option><option>Brother</option><option>Sister</option><option>Other</option></select></div>
+      <div class="col-md-2"><label class="form-label">Contact Mobile <span class="text-danger">*</span></label>
+        <input type="tel" class="form-control" name="emgMobile" pattern="[6-9][0-9]{9}" maxlength="10" required></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. MEDICAL ALERTS -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-heart-pulse"></i> Medical Alerts</div>
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-6"><label class="form-label">Known Allergies</label>
+        <textarea class="form-control" rows="2" name="allergies"></textarea></div>
+      <div class="col-md-6"><label class="form-label">Existing Conditions (Diabetes, BP, etc.)</label>
+        <textarea class="form-control" rows="2" name="conditions"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. INSURANCE (shown only when checked) -->
+<div class="card mb-2">
+  <div class="card-header"><i class="bi bi-file-earmark-medical"></i> Insurance / TPA</div>
+  <div class="card-body">
+    <div class="form-check form-switch mb-2">
+      <input class="form-check-input" type="checkbox" id="hasInsurance" name="hasInsurance">
+      <label class="form-check-label" for="hasInsurance">Patient has insurance</label>
+    </div>
+    <div class="row g-2 d-none" id="insuranceBox">
+      <div class="col-md-3"><label class="form-label">Insurance Company</label>
+        <select class="form-select select2" name="insuranceCompanyId" data-placeholder="Select"><option></option></select></div>
+      <div class="col-md-3"><label class="form-label">Policy / Card No.</label>
+        <input type="text" class="form-control" name="policyNo"></div>
+      <div class="col-md-3"><label class="form-label">Valid Till</label>
+        <input type="date" class="form-control" name="policyValidTill"></div>
+      <div class="col-md-3"><label class="form-label">Insurance Card</label>
+        <input type="file" class="form-control" name="insuranceFile"></div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex gap-2 mb-3">
+  <div class="form-check form-switch me-3 align-self-center">
+    <input class="form-check-input" type="checkbox" id="active" name="active" checked>
+    <label class="form-check-label" for="active">Active</label>
+  </div>
+  <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save</button>
+  <button type="reset" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
+</div>
+
+</form>
 </main>
 
 <script>
-$('#demoForm').on('submit',function(e){
-  e.preventDefault();                        // remove this line for a real submit
-  if(!this.checkValidity()){ $(this).addClass('was-validated'); return; }
-  App.toast('success','Saved successfully'); // or Swal.fire(...)
+// Auto calculate age from DOB
+$('#dob').on('change', function () {
+  var d = new Date(this.value), n = new Date();
+  if (isNaN(d)) { $('#age').val(''); return; }
+  var y = n.getFullYear() - d.getFullYear(), m = n.getMonth() - d.getMonth();
+  if (m < 0 || (m === 0 && n.getDate() < d.getDate())) y--;
+  $('#age').val(y < 1 ? 'Less than 1 year' : y + ' Years');
+});
+
+// Show insurance fields only when needed
+$('#hasInsurance').on('change', function () {
+  $('#insuranceBox').toggleClass('d-none', !this.checked);
+});
+
+$('#patientForm').on('submit', function (e) {
+  e.preventDefault();                          // remove this line for a real submit
+  if (!this.checkValidity()) { $(this).addClass('was-validated'); return; }
+  App.toast('success', 'Patient saved successfully');
 });
 </script>
 
 </body>
-</html>
+</html>			

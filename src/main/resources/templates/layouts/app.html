@@ -36,6 +36,45 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var KEY = 'openMenus';
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+
+  function openMenu(sub) {
+    sub.classList.add('show');
+    var t = document.querySelector('.sidebar [href="#' + sub.id + '"]');
+    if (t) { t.classList.remove('collapsed'); t.setAttribute('aria-expanded', 'true'); }
+  }
+
+  // 1. reopen menus the user had opened
+  saved.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) openMenu(el);
+  });
+
+  // 2. open the menu of the current page + highlight link
+  document.querySelectorAll('.sidebar .sub a.nav-link').forEach(function (a) {
+    var p = a.pathname;
+    if (p && p !== '/' && location.pathname.startsWith(p)) {
+      a.classList.add('active');
+      openMenu(a.closest('.collapse'));
+    }
+  });
+
+  // 3. remember open / close
+  function store(id, isOpen) {
+    saved = saved.filter(function (x) { return x !== id; });
+    if (isOpen) saved.push(id);
+    localStorage.setItem(KEY, JSON.stringify(saved));
+  }
+  document.querySelectorAll('.sidebar .collapse.sub').forEach(function (el) {
+    el.addEventListener('shown.bs.collapse',  function () { store(el.id, true);  });
+    el.addEventListener('hidden.bs.collapse', function () { store(el.id, false); });
+  });
+});
+</script>
 
 
 <div th:replace="${script}">
